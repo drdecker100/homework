@@ -31,7 +31,7 @@ the exit inputs.
 
 """
 from bs4 import BeautifulSoup
-import urllib.request
+from urllib.request import urlopen
 
 print("\n***Examples of accepted url_format 'http://www.voidspace.org.uk' \
 or https://google.com***")
@@ -45,8 +45,8 @@ while True:
             print("Program Ended!!")
             break
             
-        req = urllib.request.Request(url)
-        response = urllib.request.urlopen(req)
+        #req = urllib.request.Request(url)
+        response = urlopen(url)
         page = response.read()
         status_code = response.getcode() 
         #print(page)
