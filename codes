@@ -1,0 +1,481 @@
+##########################################################################################################
+##########################################################################################################
+###Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+#functionName twoIndex with params nums array and target number
+
+#init empty dictionary to keep track of the indexes
+
+#loop through the given list and find diff between target and each value in list
+
+#check the diff value exist in dict, return ts index and current value of iteration
+
+#if it doesnt exit, store its its index as value
+
+#return empty if target not set
+
+
+
+def twoIndex(nums, target):
+        
+        new =[]
+        seen = {}
+        
+        for i, v in enumerate(nums):
+            remaining = target - v
+            
+            if remaining in seen:
+                
+                new_ls = seen[remaining], i
+                new.append(new_ls)
+            else:
+                seen[v]=i
+        
+        return new
+            
+            
+            
+numb = [2,15,11,7,8,1]
+
+targ = 9
+
+print(twoIndex(numb,targ))
+
+##########################################################################################################
+##########################################################################################################
+##Given an array of intergers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k
+
+numb = [9, 4, 20, 3, 10, 5]
+targ = 33
+
+#define function to execute code 
+
+#init variables to keep track sum equals to k
+
+#loop through the the list and store the sum to totalsum
+
+#if the remaining is stored in dict and incremetn the counter
+
+#we return the count on the continouus subarrays that sum up to k
+
+def subarraysum(nums,k):
+
+    seen={}     
+    tsum=0    
+    count=0
+    
+    for i in nums:    
+        tsum+=i    
+        remaining = tsum-k
+    
+        if remaining == 0:    
+            seen[tsum]=1   
+            count+=1 
+            
+        elif remaining in seen:    
+            count+=seen[remaining] 
+            
+        elif tsum in seen:
+            seen[tsum]+=1
+    
+        else:
+            seen[tsum]=1 
+            
+    return count
+    
+print(subarraysum(numb,targ))
+
+##########################################################################################################
+##########################################################################################################
+Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+numb = [0,0,1,1,1,2,2,3,3,4,4,4,4]
+
+def rmduplicate(nums):
+
+    #initialize a count variable
+
+    index=0
+    
+    #start a loop to compare numbers in first index to third index 
+    
+    while index < len(nums)-2: 
+        
+    #delete number of third index if equals to the first index
+    
+        if nums[index] == nums[index+2]: 
+            del nums[index+2]
+            continue 
+        index+=1
+    
+    #Return len of the array 
+    return len(nums), nums
+    
+print(rmduplicate(numb))
+
+##########################################################################################################
+##########################################################################################################
+##Given an array of integers greater than zero, 
+##find if it is possible to split it into two subarrays
+##(without ordering the elements), such that the sum of the two subarrays is the same.
+
+def splitarray(nums):
+    # arr=sorted(arr, reverse = False)
+
+    ## the length of the array is assigned to vaiable named n
+    
+    n = len(nums)
+    ## set to pointers, leftsum and rightsum 
+    ## Will set the leftSum to 0
+    ## Will calculate initially the rightsum by using sun(arr)
+    ## and the rightSum to the total sum of array
+    
+    leftSum = 0
+    rightSum = sum(nums)
+
+    ## iterate through arr by range of 0 to n
+    ## if had used n=len(arr)-1, the range would hv been 0 to n+1
+    ## so that the last element is not omitted
+    
+    for i in range(n):
+        ## we match the sum of the subarrays with a if condition
+        ## if the left sum == right sum, we accept 
+        ## otherwise, we reject
+        
+        if leftSum == rightSum:
+            ## print out both left array and right array
+            
+            print(nums[:i], ',', nums[i:])
+            ## and return true 
+            
+            return True
+        ## add arr[i] to leftsum, while we substract from the right side
+        ## until both sides matches 
+        
+        rightSum = rightSum - nums[i]
+        leftSum = leftSum + nums[i]
+
+    ## return false if the sum of subarrays are not equal
+    ## one tab
+    return False
+
+
+
+print(splitarray([1, 1, 1, 3, 0])) 
+
+##Given an array of integers greater than zero, 
+##find if it is possible to split it into two subarrays
+##(without ordering the elements), such that the sum of the two subarrays is the same.
+
+def splitarray(nums):
+    for i in range(0, len(nums)):
+        if sum(nums[:i+1])==sum(nums[i+1:]):
+            return nums[:i+1],nums[i+1:]
+        
+print(splitarray([1,2,2,0,1]))
+
+##########################################################################################################
+##########################################################################################################
+
+Given an array nums, write a function to move all 0's to the end maintaining the relative order of the non-zero elements.
+numb = [0,1,0,3,12]
+new=[]
+
+def move(nums):
+    i=0
+    while i < len(nums): 
+        if nums[i] == 0 :
+            del nums[i] 
+            new.append(0)
+            continue
+        
+        i+=1
+    nums.extend(new)
+
+    return nums
+
+print(move(numb))
+
+##########################################################################################################
+##########################################################################################################
+
+***Given a sorted array nums, remove the duplicates in place such that each elment appear only once and return the new length.
+
+numb = [1,1,2,2,2,3]
+
+def rmduplicatel(nums): 
+    #initialize a count Index
+    index= 0
+    #loop through array and for each count compare Items 
+    #If equal delete duplicate
+
+    while Index < len(nums)-1: 
+        if nums[index]-nums[index+1]: 
+            del nums[index+1] 
+            print(index, nums)
+            continue
+
+        index+=1 
+    return len(nums), nums
+    
+++++++++++++++++++++++++++++++++++++++++
+print (rmduplicatel(numb))
+
+def rmdup(nums):
+    return len(set(nums)), set(nums)
+
+print(rmdup([1,1,3,5,6,7,7]))
+
+##########################################################################################################
+##########################################################################################################
+**"given an array of integers, Find the maximum product of two integers in an array.
+numb = [-10,-3,5,8,-2]
+
+def maxproduct(num):
+
+    num.sort()
+
+    val1=num[0]*num[1]
+    val2=num[-1]*num[-2]
+    
+    if val1==val2:
+        return (num[0], num[1]), (num[-1], num[-2]) 
+    
+    elif val1 > val2:
+        return num[0], num[1] 
+
+    else: 
+        return num[-1], num[-2]
+
+print (maxproduct(numb))
+
+##########################################################################################################
+##########################################################################################################
+read/write/merge file
+
+#open files
+with open("log_file1.txt") as file:
+    data1 = file.read()
+
+with open("log_file2.txt") as file:
+    data2 = file.read()
+    
+#create an empty dictionary for merged records
+d = {}
+
+#update dictionary with data1
+for record in data1.strip().split("\n"):
+    record = record.split(" ")
+    d[record[0]] = record[1]
+    
+#update dictionary with data2
+for record in data2.strip().split("\n"):
+    record = record.split(" ")
+    d[record[0]] = record[1]  
+        
+#sort dictionary
+sorted_file = []
+for item in sorted(d.items()):
+    sorted_file.append(item)
+
+#write output to a new file
+with open("output.txt", mode = "w") as file:
+    file.write(str(sorted_file)) 
+    
+##########################################################################################################
+##########################################################################################################
+#dinosaur question
+
+$ cat dataset1.csv
+NAME,LEG_LENGTH,DIET
+Hadrosaurus,1.4,herbivore
+Struthiomimus,0.72,omnivore
+Velociraptor,1.8,carnivore
+Triceratops,0.47,herbivore
+Euoplocephalus,2.6,herbivore
+Stegosaurus,1.50,herbivore
+Tyrannosaurus Rex,6.5,carnivore
+
+$ cat dataset2.csv 
+NAME,STRIDE_LENGTH,STANCE
+Euoplocephalus,1.97,quadrupedal
+Stegosaurus,1.70,quadrupedal
+Tyrannosaurus Rex,4.76,bipedal
+Hadrosaurus,1.3,bipedal
+Deinonychus,1.11,bipedal
+Struthiomimus,1.24,bipedal
+Velociraptorr,2.62,bipedal
+
+def printbi(DinoInfo, AddInfo):
+
+
+    d = {}
+    ## we parse data from csv file
+    for line in open(AddInfo):
+        if 'bipedal' in line:  # o(n) o(m * n)
+            ## line is a string format.
+            ## we strip the new line
+            ## we split by ',' into a list for easy manupulation of elements
+
+            fields = line.strip('\n').split(',')  # split items by comma to separate elements in line
+            ## we sort object name dinosaur out
+            ## by the zero index or first element
+            name = str.lower(fields[0])
+            # print(name)
+            ## we sort object stride length out
+            # by sorting out the first index of fields
+            stride_length = float(fields[1])
+            # print(stride_length)
+            ##we then parse the data from second csv file
+            for line in open(DinoInfo):
+                ## line is a string format.
+                ## we strip the new line
+                ## we split by ',' into a list for easy manipulation of elements
+                if name in str.lower(line):
+                    fields = line.strip('\n').split(',')
+                    # print(fields)
+                    ## we sort object name dinosaur out
+                    ## by the zero index or first element
+                    leg_length = float(fields[1])
+                    # sorting key=name, value as speed
+                    d[name] = ((stride_length / leg_length) - 1) * ((leg_length * 9.8) ** 0.5)
+                       # d[dinosaur] = (((stride_length)/leg_length) - 1) * pow(leg_length * 9.8,0.5)
+    (one tab)
+    ##to print as list of element
+    fnlist = sorted(d, key=lambda x: d[x], reverse=True)
+
+    return fnlist
+
+print(printbi("dataset1.csv", "dataset2.csv"))
+
+##########################################################################################################
+##########################################################################################################
+
+this data was in a text file and i was told to sort based on interface rate from highest to lowest
+
+fa0/0 10 2 infi fa0/1 20 12 inf2
+
+fae/2 5 9 inf3
+
+fa0/3 50 90 inf4
+
+new_list=[]
+
+with open('interface-list.txt', 'r') as f: 
+  data=f.read().splitlines() 
+  for i in data:
+    new_list.append(i.split()) 
+new_list.sort(key=lambda x:int(x[2]), reverse=True) 
+print(new_list)
+
+###########################################################################
+###########################################################################
+
+###PIG LATEN ###
+#def functionName(params):
+
+def piglaten(sentence):
+    ##split sentence into words
+    
+    words = sentence.split()
+
+##loop through words and convert to pig latin
+
+##if starts with vowel, just add "yay"
+
+##Otherwise, move the first consonant cluster to the end, and add "ay"
+
+    new_words = []
+    
+    for word in words:
+        if word[0] in "aeiou":
+            new_word = word + "yay"
+            new_words.append(new_word)
+        else:
+            vowel_pos = 0
+            for letter in word:
+                if letter not in "aeiou":
+                    vowel_pos = vowel_pos + 1
+                else:
+                    break
+            cons = word[:vowel_pos]
+            the_rest = word[vowel_pos:]
+            new_word = the_rest + cons + "ay"
+            new_words.append(new_word)
+    
+    ##stick back together
+    output = " ".join(new_words)
+    
+    ##output the final string
+    return(output)
+    
+sentence = input("Enter a sentence: ").strip().lower()
+    
+print(piglaten("my name is kwame"))
+
+##########################################################################################################
+##########################################################################################################
+
+#####reversing a word #####
+def rev(text):
+	return text[::-1]
+  
+ ##########################################################################################################
+##########################################################################################################
+PACKING AND UNPACKING USING ARGS AND KWARGS( * args and **kwargs)
+
+numbers = [1,2,3,4,5]
+print(numbers)		#passing 1 argument to the print function
+>>>  [1,2,3,4,5]
+
+#unpacking the argument 
+print(*numbers)
+>>>  1 2 3 4 5
+
+def add(*numbers):       # def add(*args):
+	total = 0
+	for number in numbers:
+		total = total + number
+	return(total)   
+
+add(1,2,3,4,5,6,7,8,9)
+45
+
+def about(name, age, likes):
+	sentence = "Meet {}! They are {} years old and they like {}".format(name, age, likes)
+	return sentence
+
+dictionary = {"name":"Ziyad","age":23,"likes" = "Python"}
+about(**dictionary)
+Meet {}! They are {} years old and they like {}
+#that unpacks all the keywrd arguments
+
+about(name= "Ziyad", age = 23, likes = "Python")
+Meet {}! They are {} years old and they like {}
+
+##########################################################################################################
+##########################################################################################################
+###count vowels in letters###
+word= "sefah"
+count =0
+for letter in word:
+    if letter in "aeiou":        
+       count = count + 1
+       continue
+print(count)
+
+###count vowels and consonant in letters###
+word= "sefah"
+vowel_count=0
+cons_count=0
+for letter in word:
+    if letter in "aeiou":
+       vowel_count = vowel_count + 1
+    else:
+        cons_count = cons_count + 1
+        
+print(vowel_count)
+print(cons_count)
+
