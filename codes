@@ -479,3 +479,236 @@ for letter in word:
 print(vowel_count)
 print(cons_count)
 
+
+##########################################################################################################
+##########################################################################################################
+###count letter in word
+
+word = "missippisolustion"
+#
+def wcount(text,char):               #create function with 2 params
+    
+    return text.count(char)          #string method count to find the number of occurences
+
+print(wcount(word,"s"))              #call function
+    
+
+def wcount(text,char):
+    cout = 0                        #set count to 0
+    
+    for letter in text:
+        if letter == char:          #if letter is equal to char
+            cout = cout+1           #increment count
+    
+    return cout
+print(wcount(word,"s"))
+
+
+##########################################################################################################
+##########################################################################################################
+###matching items in two different arrays
+
+arr1 = ["Kofi","kwesi", "sefah","kate"]
+
+arr2 = ["Meggy", "kofi","Kate", "Russ"]
+
+for name1 in arr1:
+    #kofi
+    for name2 in arr2:
+        #Meggy
+        if name1.lower() == name2.lower():
+            print(name1)
+
+
+##########################################################################################################
+##########################################################################################################
+'''
+Open two data files
+2. Read the data in both files
+a. Merge the data from both files together
+b. Delete duplicate data
+i. Print a message to the user if you detect a duplicate data record. Include the
+record data in the message.
+c. Sort the data and output to a file. The output file should have the same format as the
+two input files
+
+'''
+def handle(txt1,txt2):
+    d ={}                                        #empty dict 
+     
+    f1 = open(txt1)                              #open file    
+    for line in f1:                              #loop through file and manipulate
+        #192.12.2.2,60
+        ip, port = line.strip("\n").split(",")   #store fields in ip and port
+        #[192.168.2.2 60]
+        d[ip] = [port]                           #dict pair of ip and port. List so you can append to it
+    
+    f2 = open(txt2)                              #open second file
+    for line in f2:                              #loop through file 
+        #192.12.2.2,60
+        ip, port = line.strip("\n").split(",")   #strip new line and split by ","
+        #[192.12.2.2 60]
+        if ip not in d:                          #if key is not in dict, we add the dict pair
+            d[ip] = [port]
+        else:                                    #else we ignore
+            print("duplicate data record,ip= {},port= {}".format(ip,port))
+            pass                                    
+       
+    print(d)    
+    fnlist = sorted(d, key=lambda item: d[item], reverse=True)        #reverse and print only key
+    print(fnlist)
+    
+    #fnlist = dict(sorted(d.items(), key=lambda item: item[1], reverse= True)) #reverse dictionary
+   
+    f1.close()
+    f2.close()
+    #f3.close()
+    
+handle("log1.txt","log2.txt")
+
+    
+#    f3 = open("output2.txt", "w")                #open a write file
+#    for k,v in sorted(d.items()):                #sorting by key
+#        item = str(k)+","+str(v[0])              # manipulating string            
+#        f3.write(item)                           #write to file
+#        f3.write("\n")                           #add new line
+
+##########################################################################################################
+##########################################################################################################
+'''
+You will be supplied with two data files in CSV format .
+The first file contains statistics about various dinosaurs. 
+The second file contains additional data.
+Given the following formula, `speed = ((STRIDE_LENGTH / LEG_LENGTH) - 1) * SQRT(LEG_LENGTH * g)`
+Where g = 9.8 m/s^2 (gravitational constant)
+
+Write a program to read in the data files from disk, it must then print the names of only 
+the bipedal dinosaurs from fastest to slowest.
+Do not print any other information.
+
+$ cat dataset1.csv
+NAME,LEG_LENGTH,DIET
+Hadrosaurus,1.4,herbivore
+Struthiomimus,0.72,omnivore
+Velociraptor,1.8,carnivore
+Triceratops,0.47,herbivore
+Euoplocephalus,2.6,herbivore 
+Stegosaurus,1.50,herbivore
+Tyrannosaurus Rex,6.5,carnivore
+
+$ cat dataset2.csv 
+NAME,STRIDE_LENGTH,STANCE
+Euoplocephalus,1.97,quadrupedal
+Stegosaurus,1.70,quadrupedal
+Tyrannosaurus Rex,4.76,bipedal
+Hadrosaurus,1.3,bipedal
+Deinonychus,1.11,bipedal
+Struthiomimus,1.24,bipedal
+Velociraptor,2.62,bipedal
+'''
+'''
+speed = ((STRIDE_LENGTH / LEG_LENGTH) - 1) * SQRT(LEG_LENGTH * g)`
+Where g = 9.8 m/s^2 (gravitational constant)
+'''
+
+from math import sqrt
+
+def printbi(DinoInfo, AddInfo):
+   
+    g = 9.8                                         #variable to hold constant
+    
+    d = {}                                          #empty dict for name and speed value
+    
+    f1 = open(AddInfo)                              #open AddInfo and search for bipedal chxn
+    for line in f1:                                 #iterate thru content
+        if "bipedal" in line:                       #if there is a match
+            fields = line.strip("\n").split(",")    #strip newline and split by ",",returns a list
+            
+            name = str.lower(fields[0])             #store first object as name. lower is an option
+            stride_length = float(fields[1])        #store second object as stride_length
+            
+            f2 = open(DinoInfo)                     #open DinoInfo for search for leg length for name
+            for line in f2:                         #loop thru
+                if name in str.lower(line):         # if name matches the line 
+                    fields = line.strip('\n').split(',')        #return fields
+                                       
+                    leg_length = float(fields[1])               #second object as leg_length and feed value to find spped        
+                    speed = ((stride_length / leg_length) - 1) * sqrt(leg_length * g)
+                    
+                    d[name] = speed                 #dictonary pair of names and speeds
+    
+    fnlist = sorted(d, key=lambda x: d[x], reverse=True)        #reverse and print only key
+    print(fnlist)
+    #fnlist = dict(sorted(d.items(), key=lambda item: item[1]))  #reverse dictionary
+    
+    f1.close()
+    f2.close()
+                                           
+printbi("dataset1.csv", "dataset2.csv")  
+
+##########################################################################################################
+##########################################################################################################
+
+"""
+Using dictionary, create the best possible data structure to group this data set better.
+The code should be scalable, in that, the code group any new data center and devices 
+to the old devices
+
+"""
+
+devices= [
+'ssw001.abc1', 'ssw002.abc1', 'ssw003.abc1', 'ssw012.dec1',
+'ssw004.abc1', 'ssw005.abc1', 'ssw006.dec1', 'ssw007.dec1', 
+'ssw008.xyz2', 'ssw009.xyz2', 'ssw010.xyz2', 'ssw011.xyz2', 
+'esw001.abc1', 'esw002.abc1', 'esw003.abc1', 'esw004.abc1', 
+'esw005.abc1', 'esw006.abc1', 'esw007.xyz2', 'esw008.xyz2', 
+'fsw001.abc1', 'fsw002.abc1', 'fsw003.abc1', 'fsw004.abc1',
+'fsw001.abc1', 'fsW002.abc1', 'fsw003.xyz2', 'fsw004.xyz2']
+
+d = {}                                     #create empty dict
+
+f = open("demofile4.txt","r")              #read file to variable f
+
+for device in f:                           #iterate through content of file,f
+    
+    device = device.strip("\n")            #strip newline off , string method
+    value, key = device.split(".")         #split by "." ; returns list
+    #[ssw001 abc1]
+    if key not in d:                       #if key is not in dictionary
+        d[key]=[value]                     #add key and value pair to dict
+        #d ={"abc1":["ssw001"]}            #value is list so we can append to it
+    else:
+        d[key].append(value)               #value is append to the dict if key exists
+    
+print(d)
+
+f.close()
+    
+#f = open("demofile.csv","w+")             #to create file
+#for device in devices:           
+#   f.write(device)
+#   f.write("\n")
+#   
+#f.close()
+
+#"r" - Read - Default value. Opens a file for reading, error if the file does not exist
+#"a" - Append - Opens a file for appending, creates the file if it does not exist
+#"w" - Write - Opens a file for writing, creates the file if it does not exist
+#"x" - Create - Creates the specified file, returns an error if the file exists
+
+##########################################################################################################
+##########################################################################################################
+
+str1 = "Hadrosaurus,1.4,herbivore"
+
+str1 = str1.split(",")
+#["H...s","1.4","herb.."]
+d={}
+
+d[str1[0]]=str1[1:]
+
+print(d)
+
+
+##########################################################################################################
+##########################################################################################################
