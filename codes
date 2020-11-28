@@ -48,75 +48,125 @@ print(twoIndex(numb,targ))
 
 ##########################################################################################################
 ##########################################################################################################
-##Given an array of intergers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k
+'''
+Given an array of intergers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k
+'''
+
+def subarraysum(nums,k):                     #define function with 2 params
+
+    seen={}                                  #we create a dict for seen to hold our totalsum and count
+    tsum=0                                   #set total sum to 0
+    cout=0                                   #set count to 0
+    
+    for i in nums:                           #loop thru array
+        #9
+        #4
+        #20
+        tsum+=i                              #initiate by increment totalsum with first element
+        #tsum=9+0=9
+        #tsum=4+9=13
+        #tsum=20+13=33
+        remaining = tsum-k                   #rem will be total sum minus targ
+        #rem = 9-33 = -24
+        #rem = 13-33 =-20
+        #rem = 33-33 = 0
+    
+        if remaining == 0:                   #check if rem will be equal to 0, else will run
+            #rem(-24) != 0
+            #rem(-20) != 0
+            #rem(0) == 0
+            seen[tsum]=1                     #if it it, we create a dict pair with tsum as key, 1 as value
+            #{33:1}
+            cout+=1                          #we then increment our count
+            #1
+            
+        elif remaining in seen:              #else if remianing is in dict
+            #rem(-24) not in seen
+            #rem(-20) not in seen
+            cout+=seen[remaining]            #we increment count by value
+            
+        elif tsum in seen:                   #if the total sum is in seen
+            #tsum(9) != seen
+            #tsum(13) != seen
+            seen[tsum]+=1                    #we increment the value 
+            
+    
+        else:
+            seen[tsum]=1                     #if conditions are not met, we create a dict pair 
+            #{9:1,13:1}
+                       
+    return cout
 
 numb = [9, 4, 20, 3, 10, 5]
 targ = 33
-
-#define function to execute code 
-
-#init variables to keep track sum equals to k
-
-#loop through the the list and store the sum to totalsum
-
-#if the remaining is stored in dict and incremetn the counter
-
-#we return the count on the continouus subarrays that sum up to k
-
-def subarraysum(nums,k):
-
-    seen={}     
-    tsum=0    
-    count=0
-    
-    for i in nums:    
-        tsum+=i    
-        remaining = tsum-k
-    
-        if remaining == 0:    
-            seen[tsum]=1   
-            count+=1 
-            
-        elif remaining in seen:    
-            count+=seen[remaining] 
-            
-        elif tsum in seen:
-            seen[tsum]+=1
-    
-        else:
-            seen[tsum]=1 
-            
-    return count
     
 print(subarraysum(numb,targ))
 
 ##########################################################################################################
 ##########################################################################################################
+'''
 Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
-
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
-
+output= [0,0,1,1,2,2,3,3,4,4]
+'''
 numb = [0,0,1,1,1,2,2,3,3,4,4,4,4]
 
 def rmduplicate(nums):
 
-    #initialize a count variable
-
-    index=0
-    
-    #start a loop to compare numbers in first index to third index 
-    
-    while index < len(nums)-2: 
-        
-    #delete number of third index if equals to the first index
-    
-        if nums[index] == nums[index+2]: 
-            del nums[index+2]
+    i=0                                 #initialize a count variable       
+    while i < len(nums)-2:              #start a loop to compare numbers in first index to third index 
+        # i(0) < 14 -2=12               #if len(num)=14 will return out of range
+        # i(1) < 12
+        #i(2) <12
+        if nums[i] == nums[i+2]:    #delete number of third index if equals to the first index
+            # nums[0] == nums[2] > 0 != 1
+            # nums[1] == nums[3] > 0 != 1
+            # nums[2] == nums[4]  > 1 == 1 
+            #nums[3]  == nums[5]  > 1 == 2
+            
+            del nums[i+1]           #if it matchs, we del it from the array and continue the loop
+            #rm nums[3]    
+            
+            
             continue 
-        index+=1
+        i+=1                       #else we increase the count and start the loop
+        #i=1
+        #i=2
     
     #Return len of the array 
-    return len(nums), nums
+    return len(nums), nums          #return length of nums
+    
+print(rmduplicate(numb))
+
+##########################################################################################################
+##########################################################################################################
+'''
+Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+output = [1,2,3,4,5]
+'''
+numb = [0,0,1,1,1,2,2,3,3,4,4,4,4]
+
+def rmduplicate(nums):
+
+    i=0                                 #initialize a count variable       
+    while i < len(nums)-1:              #start a loop to compare numbers in first index to third index 
+        # i(0) < 14 -2=12               #if len(num)=14 will return out of range
+        # i(1) < 12
+        #i(2) <12
+        if nums[i] == nums[i+1]:    #delete number of second index if equals to the first index
+            # nums[0] == nums[1] > 0 == 0
+            #start again nums [0] == nums[1] > 0 !=1
+                        
+            del nums[i+1]           #if it matchs, we del it from the array and continue the loop
+            #rm nums[1]    
+                       
+            continue 
+        i+=1                       #else we increase the count and start the loop
+        #i=1
+       
+    
+    return len(nums), nums          #return length of nums
     
 print(rmduplicate(numb))
 
