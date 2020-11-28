@@ -1,44 +1,49 @@
 ##########################################################################################################
 ##########################################################################################################
-###Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+'''
+Given an array of integers nums and an integer target, return indices of the two numbers 
+such that they add up to target.
 
-#functionName twoIndex with params nums array and target number
+'''
 
-#init empty dictionary to keep track of the indexes
+#return indices of integers (0,3),(4,5)
 
-#loop through the given list and find diff between target and each value in list
-
-#check the diff value exist in dict, return ts index and current value of iteration
-
-#if it doesnt exit, store its its index as value
-
-#return empty if target not set
-
-
-
-def twoIndex(nums, target):
+def twoIndex(nums,target):                  #define function wth 2 params           
+    new =[]                                 #create empty list for indexes
+    seen = {}                               #create empty dict for seen to compare with diff
         
-        new =[]
-        seen = {}
-        
-        for i, v in enumerate(nums):
-            remaining = target - v
+    for i, v in enumerate(nums):            #enumerate for index and value
+        #0 2
+        #1 15
+        #2 11
+        #3 7
+        remaining = target - v              #remaining value from target and value
+        #rem = 9 - 2 = 7
+        #rem = 9 -15 = -6
+        #rem = 9 -11 = -2
+        #rem = 9 - 7 = 2
             
-            if remaining in seen:
+        if remaining in seen:               #check if the remaining value exist, if not else runs
+            #7 not in seen
+            #-6 not in seen
+            #-2 not in seen
+            #2 is in seen
                 
-                new_ls = seen[remaining], i
-                new.append(new_ls)
-            else:
-                seen[v]=i
-        
-        return new
+            new_ls = seen[remaining], i    #if it does, we create a new_ls with value of seen dict
+            #new_ls = seen[2],3
+            #new_ls = 0,3
+            new.append(new_ls)              #append to new varible
+        else:                               #create a dict pair 
+            seen[v]=i                       #value as key and index as value
+            #{2:0, 15:1, 11:2}   
+            #{15:1}
             
-            
-            
+    
+    return new  
+
 numb = [2,15,11,7,8,1]
-
 targ = 9
-
+    
 print(twoIndex(numb,targ))
 
 ##########################################################################################################
