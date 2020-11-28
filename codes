@@ -104,6 +104,17 @@ print(subarraysum(numb,targ))
 
 ##########################################################################################################
 ##########################################################################################################
+Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+output= [1,2,3,4,5]
+
+def rmdup(nums):
+    return len(set(nums)), set(nums)
+
+print(rmdup([1,1,3,5,6,7,7]))
+
+##########################################################################################################
+##########################################################################################################
 '''
 Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
@@ -154,80 +165,35 @@ def rmduplicate(nums):
         # i(0) < 14 -2=12               #if len(num)=14 will return out of range
         # i(1) < 12
         #i(2) <12
-        if nums[i] == nums[i+1]:    #delete number of second index if equals to the first index
+        if nums[i] == nums[i+1]:         #delete number of second index if equals to the first index
             # nums[0] == nums[1] > 0 == 0
             #start again nums [0] == nums[1] > 0 !=1
                         
-            del nums[i+1]           #if it matchs, we del it from the array and continue the loop
+            del nums[i+1]                #if it matchs, we del it from the array and continue the loop
             #rm nums[1]    
                        
             continue 
-        i+=1                       #else we increase the count and start the loop
+        i+=1                             #else we increase the count and start the loop
         #i=1
        
     
-    return len(nums), nums          #return length of nums
+    return len(nums), nums               #return length of nums
     
 print(rmduplicate(numb))
 
 ##########################################################################################################
 ##########################################################################################################
-##Given an array of integers greater than zero, 
+'''
+Given an array of integers greater than zero, 
 ##find if it is possible to split it into two subarrays
-##(without ordering the elements), such that the sum of the two subarrays is the same.
+(without ordering the elements), such that the sum of the two subarrays is the same.
+'''
 
 def splitarray(nums):
-    # arr=sorted(arr, reverse = False)
-
-    ## the length of the array is assigned to vaiable named n
-    
-    n = len(nums)
-    ## set to pointers, leftsum and rightsum 
-    ## Will set the leftSum to 0
-    ## Will calculate initially the rightsum by using sun(arr)
-    ## and the rightSum to the total sum of array
-    
-    leftSum = 0
-    rightSum = sum(nums)
-
-    ## iterate through arr by range of 0 to n
-    ## if had used n=len(arr)-1, the range would hv been 0 to n+1
-    ## so that the last element is not omitted
-    
-    for i in range(n):
-        ## we match the sum of the subarrays with a if condition
-        ## if the left sum == right sum, we accept 
-        ## otherwise, we reject
-        
-        if leftSum == rightSum:
-            ## print out both left array and right array
-            
-            print(nums[:i], ',', nums[i:])
-            ## and return true 
-            
-            return True
-        ## add arr[i] to leftsum, while we substract from the right side
-        ## until both sides matches 
-        
-        rightSum = rightSum - nums[i]
-        leftSum = leftSum + nums[i]
-
-    ## return false if the sum of subarrays are not equal
-    ## one tab
-    return False
-
-
-
-print(splitarray([1, 1, 1, 3, 0])) 
-
-##Given an array of integers greater than zero, 
-##find if it is possible to split it into two subarrays
-##(without ordering the elements), such that the sum of the two subarrays is the same.
-
-def splitarray(nums):
-    for i in range(0, len(nums)):
-        if sum(nums[:i+1])==sum(nums[i+1:]):
-            return nums[:i+1],nums[i+1:]
+    for i in range(0, len(nums)):                      #i(0) loop thru 0 to len(arr)
+        if sum(nums[:i+1])==sum(nums[i+1:]):           #if sum of the left arr equals right
+            #nums[:1]=1 , nums[1:]= [2,3,4]
+            return nums[:i+1],nums[i+1:]               #return slice of the left side, right side
         
 print(splitarray([1,2,2,0,1]))
 
@@ -253,35 +219,6 @@ def move(nums):
 
 print(move(numb))
 
-##########################################################################################################
-##########################################################################################################
-
-***Given a sorted array nums, remove the duplicates in place such that each elment appear only once and return the new length.
-
-numb = [1,1,2,2,2,3]
-
-def rmduplicatel(nums): 
-    #initialize a count Index
-    index= 0
-    #loop through array and for each count compare Items 
-    #If equal delete duplicate
-
-    while Index < len(nums)-1: 
-        if nums[index]-nums[index+1]: 
-            del nums[index+1] 
-            print(index, nums)
-            continue
-
-        index+=1 
-    return len(nums), nums
-    
-++++++++++++++++++++++++++++++++++++++++
-print (rmduplicatel(numb))
-
-def rmdup(nums):
-    return len(set(nums)), set(nums)
-
-print(rmdup([1,1,3,5,6,7,7]))
 
 ##########################################################################################################
 ##########################################################################################################
@@ -308,109 +245,14 @@ print (maxproduct(numb))
 
 ##########################################################################################################
 ##########################################################################################################
-read/write/merge file
-
-#open files
-with open("log_file1.txt") as file:
-    data1 = file.read()
-
-with open("log_file2.txt") as file:
-    data2 = file.read()
-    
-#create an empty dictionary for merged records
-d = {}
-
-#update dictionary with data1
-for record in data1.strip().split("\n"):
-    record = record.split(" ")
-    d[record[0]] = record[1]
-    
-#update dictionary with data2
-for record in data2.strip().split("\n"):
-    record = record.split(" ")
-    d[record[0]] = record[1]  
-        
-#sort dictionary
-sorted_file = []
-for item in sorted(d.items()):
-    sorted_file.append(item)
-
-#write output to a new file
-with open("output.txt", mode = "w") as file:
-    file.write(str(sorted_file)) 
-    
-##########################################################################################################
-##########################################################################################################
-#dinosaur question
-
-$ cat dataset1.csv
-NAME,LEG_LENGTH,DIET
-Hadrosaurus,1.4,herbivore
-Struthiomimus,0.72,omnivore
-Velociraptor,1.8,carnivore
-Triceratops,0.47,herbivore
-Euoplocephalus,2.6,herbivore
-Stegosaurus,1.50,herbivore
-Tyrannosaurus Rex,6.5,carnivore
-
-$ cat dataset2.csv 
-NAME,STRIDE_LENGTH,STANCE
-Euoplocephalus,1.97,quadrupedal
-Stegosaurus,1.70,quadrupedal
-Tyrannosaurus Rex,4.76,bipedal
-Hadrosaurus,1.3,bipedal
-Deinonychus,1.11,bipedal
-Struthiomimus,1.24,bipedal
-Velociraptorr,2.62,bipedal
-
-def printbi(DinoInfo, AddInfo):
 
 
-    d = {}
-    ## we parse data from csv file
-    for line in open(AddInfo):
-        if 'bipedal' in line:  # o(n) o(m * n)
-            ## line is a string format.
-            ## we strip the new line
-            ## we split by ',' into a list for easy manupulation of elements
-
-            fields = line.strip('\n').split(',')  # split items by comma to separate elements in line
-            ## we sort object name dinosaur out
-            ## by the zero index or first element
-            name = str.lower(fields[0])
-            # print(name)
-            ## we sort object stride length out
-            # by sorting out the first index of fields
-            stride_length = float(fields[1])
-            # print(stride_length)
-            ##we then parse the data from second csv file
-            for line in open(DinoInfo):
-                ## line is a string format.
-                ## we strip the new line
-                ## we split by ',' into a list for easy manipulation of elements
-                if name in str.lower(line):
-                    fields = line.strip('\n').split(',')
-                    # print(fields)
-                    ## we sort object name dinosaur out
-                    ## by the zero index or first element
-                    leg_length = float(fields[1])
-                    # sorting key=name, value as speed
-                    d[name] = ((stride_length / leg_length) - 1) * ((leg_length * 9.8) ** 0.5)
-                       # d[dinosaur] = (((stride_length)/leg_length) - 1) * pow(leg_length * 9.8,0.5)
-    (one tab)
-    ##to print as list of element
-    fnlist = sorted(d, key=lambda x: d[x], reverse=True)
-
-    return fnlist
-
-print(printbi("dataset1.csv", "dataset2.csv"))
-
-##########################################################################################################
-##########################################################################################################
 
 this data was in a text file and i was told to sort based on interface rate from highest to lowest
 
-fa0/0 10 2 infi fa0/1 20 12 inf2
+fa0/0 10 2 infi 
+
+fa0/1 20 12 inf2
 
 fae/2 5 9 inf3
 
@@ -621,12 +463,24 @@ def handle(txt1,txt2):
     
 handle("log1.txt","log2.txt")
 
+##sort dictionary
+#sorted_file = []
+#for item in sorted(d.items()):
+#    sorted_file.append(item)
+
+#write output to a new file
+#with open("output.txt", mode = "w") as file:
+#    file.write(str(sorted_file))
+
     
 #    f3 = open("output2.txt", "w")                #open a write file
 #    for k,v in sorted(d.items()):                #sorting by key
 #        item = str(k)+","+str(v[0])              # manipulating string            
 #        f3.write(item)                           #write to file
 #        f3.write("\n")                           #add new line
+
+
+
 
 ##########################################################################################################
 ##########################################################################################################
