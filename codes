@@ -199,8 +199,26 @@ print(splitarray([1,2,2,0,1]))
 
 ##########################################################################################################
 ##########################################################################################################
-
+'''
 Given an array nums, write a function to move all 0's to the end maintaining the relative order of the non-zero elements.
+'''
+
+def moveZeroes(nums):
+    append_times=nums.count(0)
+    for i in range(append_times):
+        nums.remove(0)                            #  Delete the front zero
+        nums.append(0)                            # append it at the end of nums, the times of the addition and substraction shall be equal
+    print(nums)
+
+moveZeroes([1,0,2,0,3,0,4,5,6])
+
+
+##########################################################################################################
+##########################################################################################################
+'''
+Given an array nums, write a function to move all 0's to the end maintaining the relative order of the non-zero elements.
+'''
+
 numb = [0,1,0,3,12]
 new=[]
 
@@ -216,56 +234,43 @@ def move(nums):
     nums.extend(new)
 
     return nums
-
 print(move(numb))
 
 
 ##########################################################################################################
 ##########################################################################################################
 **"given an array of integers, Find the maximum product of two integers in an array.
-numb = [-10,-3,5,8,-2]
+def maxproduct(nums):
+    x1=max(nums)              #Finding the greatest number
+    i=nums.index(x1)
+    nums[i]=0                 #Making the greatest number zero 
+    x2=max(nums)              #Finding the second greatest number
+    return (x1), (x2)
 
-def maxproduct(num):
-
-    num.sort()
-
-    val1=num[0]*num[1]
-    val2=num[-1]*num[-2]
-    
-    if val1==val2:
-        return (num[0], num[1]), (num[-1], num[-2]) 
-    
-    elif val1 > val2:
-        return num[0], num[1] 
-
-    else: 
-        return num[-1], num[-2]
-
-print (maxproduct(numb))
+print(maxproduct([-10,-3,5,8,10,-2]))
 
 ##########################################################################################################
 ##########################################################################################################
-
-
-
+'''
 this data was in a text file and i was told to sort based on interface rate from highest to lowest
 
-fa0/0 10 2 infi 
+'''
+stats = ["fa0/2 10 2.5 inf1", "fa0/1 20 12.6 inf2","fa0/3 5 9 inf3","fa0/0 50 12.5 inf4"]
+#f1 = open("thatTextFile.txt")
+#for stat in f1:
+d={}
+for stat in stats:
+    #"fa0/0 10 2 infi"
+    fields = stat.strip("\n").split(" ")
+    #["fa0/2","10", "2","inf1]
+    d[fields[0]]= fields[1:]
+    
+#print(sorted(d.values()))
 
-fa0/1 20 12 inf2
+fnlist = dict(sorted(d.items(), key=lambda item: float(item[1][0]), reverse = True))   #True=highest to lowest
 
-fae/2 5 9 inf3
-
-fa0/3 50 90 inf4
-
-new_list=[]
-
-with open('interface-list.txt', 'r') as f: 
-  data=f.read().splitlines() 
-  for i in data:
-    new_list.append(i.split()) 
-new_list.sort(key=lambda x:int(x[2]), reverse=True) 
-print(new_list)
+print(fnlist)
+#f1.close()
 
 ###########################################################################
 ###########################################################################
