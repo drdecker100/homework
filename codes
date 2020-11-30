@@ -626,3 +626,108 @@ print(d)
 
 ##########################################################################################################
 ##########################################################################################################
+'''
+Given a list of interfaces, determine the busiest by output BPS.
+#host,port,input bps,output bps
+status = ['switch01,te0/1,2378748485,8474857587',
+'switch01,te0/2,43787438,334878745',
+'switch01,te0/3,347374387,3847875847',
+'switch01,te0/4,474784375,37483742347']
+How does the candidate approach the problem? When they use a data structure, 
+challenge them on why they're using a dictionary vs 
+a set to verify knowledge of the data structure they're using.
+
+'''
+
+status = ['switch01,te0/1,2378748485,8474',
+'switch01,te0/2,43787438,3348',
+'switch01,te0/3,347374387,3847',
+'switch01,te0/4,474784375,3748']
+def busiest(info):
+    
+    d={}
+    for line in info:
+        #'switch01,te0/1,2378748485,8474857587'
+        fields = line.strip().split(",")
+        #['switch01','te0/1','2378748485','8474857587']
+        fields[1], fields[0] =fields[0], fields[1]
+        #['te0/1','switch01'....]
+        d[fields[0]] = fields[1:]
+        
+    
+    #print(d)
+    fnlist = sorted(d.items(), key = lambda item: float(item[1][2]), reverse= True)
+    print(fnlist)
+        
+    
+    
+busiest(status)
+
+##########################################################################################################
+##########################################################################################################
+'''
+Q: you can ask, you can ask him to sort all the ip addresses without using sort method <- this feels more like coding question than networking. but see if he uses ipaddr to validate ?
+import ipaddr # This is not actually necessary but see if he thinks about it.
+'''
+#import ipaddress
+
+#import subprocess
+
+mm = ['10.55.231.239', '10.55.231.241', '10.55.231.243', '10.55.231.245', '10.55.231.237', '10.55.231.223']
+
+new = []
+
+#mm = [subprocess.run(["ping",i], shell =True) for i in mm]
+
+ # This is not actually necessary for this case but see if he thinks about it.
+
+while mm:
+    #'10.55.231.239'
+    minimum = mm[0]
+    for i in mm:
+        #'10.55.231.239'
+        if i < minimum:
+            minimum = i
+    new.append(minimum)
+    mm.remove(minimum)
+
+#new = [ipaddress.ip_address(i) for i in new]
+print(new)
+
+#mm = [subprocess.run(["ping",i], shell =True) for i in new]
+
+#[IPv4Address('10.55.231.223'), IPv4Address('10.55.231.237'), IPv4Address('10.55.231.239'), IPv4Address('10.55.231.241'),
+#IPv4Address('10.55.231.243'), IPv4Address('10.55.231.245')]
+
+
+##########################################################################################################
+##########################################################################################################
+'''
+1) Open the file devices.txt and extract the network devices into a list.
+- Does the candidate leave the file open? Use the context manager?
+Coderpad will not allow the execution of code in the web enviroment, so you'll need to copy and paste the list:
+devices = ['switch01', 'router01', 'router02', 'rackswitch01']
+Can the candidate ping each device?
+- How does the candidate use ping? Is there knowledge of importing modules (subprocess, twisted, another module)?
+- How does the candidate think of scale? Tell them this will be a module which will be imported by other code. Do they write this as a function? Do they use object orientation? Do they demonstrate knowledge of any of these features?
+
+'''
+#devices = ['switch01', 'router01', 'router02', 'rackswitch01']
+import subprocess
+
+def scale(data):
+    devices = open(data, "r")
+     
+    for device in devices:       
+        field = device.strip("\n").split(' ')              
+        result = subprocess.run(["ping","-c4", field])
+        print(result)
+        print()
+    
+    devices.close()
+    
+scale("devices.txt")
+
+##########################################################################################################
+##########################################################################################################
+'''
