@@ -731,3 +731,65 @@ scale("devices.txt")
 ##########################################################################################################
 ##########################################################################################################
 '''
+3) give this file and ask following questions.
+-- BGP_state.txt --
+
+BGP summary information for VRF default, address family IPv4 Unicast
+BGP router identifier 74.119.79.44, local AS number 65216
+BGP table version is 122534, IPv4 Unicast config peers 363, capable peers 308
+1554 network entries and 3410 paths using 264344 bytes of memory
+BGP attribute entries [535/72760], BGP AS path entries [33/422]
+BGP community entries [40/1348], BGP clusterlist entries [287/1148]
+3092 received paths for inbound soft reconfiguration
+3088 identical, 4 modified, 0 filtered received paths using 32 bytes
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.55.231.239   4 65000       0       0        0    0    0    13w2d Idle
+10.55.231.241   4 65000       0       0        0    0    0    13w2d Idle
+10.55.231.243   4 65000       0       0        0    0    0    13w2d Idle
+10.55.231.245   4 65000  987463  808705   122534    0    0    13w2d 7
+10.55.231.247   4 65000  987470  808708   122534    0    0    13w2d 7
+10.55.231.249   4 65000  987529  808693   122534    0    0     1w2d 24
+10.55.231.251   4 65000  987394  808693   122534    0    0    5d07h 24
+10.55.231.253   4 65000  987550  808690   122534    0    0     1w3d 24
+10.55.231.255   4 65000  987582  808700   122534    0    0    6d05h 24
+10.127.255.59   4 65355   72696   73472        0    0    0    11w6d Shut (Admin)
+
+-- BGP_state.txt --
+UNIX questions - these are more like hacky but fast solutions
+
+
+######Q - reverse sort only the bgp neighbors - unix
+cat BGP_state.txt | grep "^10" | awk '{print $1}' | sort -r
+
+awk '{print $1}' BGP_state.txt  | grep "^10" | sort -r
+
+
+#####Q: print bgp neighbors only with established bgp neighbors
+cat BGP_state.txt | grep "^[0-9].*[0-9]$" | awk '{print $1, $NF}'
+
+
+
+
+Python Questions: Q - write a code which will only print established peers.; 
+improve the code to collect information like peer_address, as_no, prefix_received.
+'''
+
+'''
+{'peer': '10.55.231.239', 'as_no': '65000', 'prefix_rcvd': '2'}
+{'peer': '10.55.231.241', 'as_no': '65000', 'prefix_rcvd': '2'}
+{'peer': '10.55.231.243', 'as_no': '65000', 'prefix_rcvd': '2'}
+
+'''
+    
+import re
+
+file = open("BGP_state.txt", "r")
+#print(file.read())
+
+pattern = re.compile("^(?P<peer>[\d\.]+)[\s]+[\d][\s]+(?P<as>[\d]+).*\s(?P<prefix>[\d]+)$")        
+
+for line in file:
+    result = pattern.search(line)
+    if result:
+        print(result.groupdict())
