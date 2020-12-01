@@ -194,6 +194,7 @@ def splitarray(nums):
         if sum(nums[:i+1])==sum(nums[i+1:]):           #if sum of the left arr equals right
             #nums[:1]=1 , nums[1:]= [2,3,4]
             return nums[:i+1],nums[i+1:]               #return slice of the left side, right side
+        return "Not possible"
         
 print(splitarray([1,2,2,0,1]))
 
