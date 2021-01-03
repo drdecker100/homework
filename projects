@@ -20,4 +20,51 @@ print("Computer programming is so {}! It makes me so excited all the time becaus
 I love to {}. Stay hydrated and {} like you are {}!".format(adj,verb1,verb2,famous_person))
 '''
 
-#
+# GUESSING NUMBER GAME
+
+import random
+
+def guess(x):
+    
+    randomNumber = random.randint(1,x)
+    #guess = 0
+    while True:
+        guess = int(input("Guess a number between 1 and {}: ".format(x)))
+        
+        if guess < randomNumber:
+            print("Your number is Low")
+            
+        elif guess > randomNumber:
+            print("Your number is high")
+            
+        else:
+            print("You guessed right")
+            break
+    
+guess(10)
+
+# ROCK -PAPER -SCISSOR
+
+import random
+
+def play():
+    user = input("What's your choice? 'r' for rock, 'p' for paper, 's' for scissors\n")
+    computer = random.choice(['r', 'p', 's'])
+
+    if user == computer:
+        return 'It\'s a tie'
+
+    # r > s, s > p, p > r
+    if is_win(user, computer):
+        return 'You won!'
+
+    return 'You lost!'
+
+def is_win(player, opponent):
+    # return true if player wins
+    # r > s, s > p, p > r
+    if (player == 'r' and opponent == 's') or (player == 's' and opponent == 'p') \
+        or (player == 'p' and opponent == 'r'):
+        return True
+
+print(play())
