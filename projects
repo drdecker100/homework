@@ -127,7 +127,7 @@ def hangman():
         print('YAY! You guessed the word', word, '!!')
         
 
-if __name__ == '__main__':
+if __name__ == '__main__':                           #is it directly being run by Python module or imported module, when you only what that part of the code(main) to run 
     hangman()
     
   ## TIC TOE
