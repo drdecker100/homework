@@ -794,3 +794,17 @@ for line in file:
     result = pattern.search(line)
     if result:
         print(result.groupdict())
+	
+###############################################################	
+###############################################################	
+import pandas as pd
+
+data = open('covid.txt')
+lines_of_data = data.read().splitlines()
+tmp = []
+for i in range(len(lines_of_data)):
+    tmp.append(lines_of_data[i].split(","))    
+data_df = pd.DataFrame(tmp) 
+data_df.to_csv('test5.csv')
+
+data.close()
