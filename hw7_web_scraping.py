@@ -57,5 +57,6 @@ while True:
             print(20* "=")
             soup = BeautifulSoup(page, 'html.parser')
             print(soup.prettify())
+            print("")
     except Exception as e:
-        print("Error encountered: {}".format(e))
+        print(f"Error encountered: {e}\nTry again\n")
