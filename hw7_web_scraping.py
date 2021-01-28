@@ -61,5 +61,3 @@ while True:
     except Exception as e:
         print(f"Error encountered: {e}\nTry again\n")
 
-
-#Add new changes to file
